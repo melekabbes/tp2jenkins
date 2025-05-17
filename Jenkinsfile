@@ -14,25 +14,20 @@ pipeline {
 
         stage("Clone repo") {
             steps {
-                sh "git clone https://github.com/melekabbes/tp2jenkins.git"
+                git url: 'https://github.com/melekabbes/tp2jenkins.git'
             }
         }
 
         stage("Generate backend image") {
             steps {
-                dir("tp2jenkins") {
-                    sh "mvn clean install"
-                    sh "docker build -t tp2jenk ."
-                }
+                sh "mvn clean install"
+                sh "docker build -t tp2jenk:${BUILD_NUMBER} ."
             }
         }
 
         stage("Run docker compose") {
             steps {
-                dir("tp2jenkins") {
-                    bat 'docker-compose up -d'
-
-                }
+                sh 'docker-compose up -d'
             }
         }
     }
