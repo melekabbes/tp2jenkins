@@ -20,14 +20,14 @@ pipeline {
 
         stage("Generate backend image") {
             steps {
-                sh "mvn clean install"
-                sh "docker build -t tp2jenk:${BUILD_NUMBER} ."
+                bat "mvn clean install"
+                bat "docker build -t tp2jenk:%BUILD_NUMBER% ."
             }
         }
 
         stage("Run docker compose") {
             steps {
-                sh 'docker-compose up -d'
+                bat "docker-compose up -d"
             }
         }
     }
