@@ -30,7 +30,8 @@ pipeline {
         stage("Run docker compose") {
             steps {
                 dir("tp2jenkins") {
-                    sh "docker compose up -d"
+                    bat 'docker-compose up -d'
+
                 }
             }
         }
